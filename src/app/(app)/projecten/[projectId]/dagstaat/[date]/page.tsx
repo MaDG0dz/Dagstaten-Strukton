@@ -14,7 +14,12 @@ import { TabPersoneel } from "./_components/tab-personeel";
 import { TabWerk } from "./_components/tab-werk";
 import { TabMateriaal } from "./_components/tab-materiaal";
 import { TabNotes } from "./_components/tab-notes";
-import { Camera } from "lucide-react";
+import { Camera, ChevronDown } from "lucide-react";
+import { createClient } from "@/lib/supabase/client";
+import { useQueryClient } from "@tanstack/react-query";
+import {
+  useProjectTemplates,
+} from "@/lib/hooks/use-templates";
 
 type TabId = "personeel" | "werk" | "materiaal" | "fotos" | "notities";
 
@@ -43,6 +48,9 @@ export default function DagstaatEditorPage() {
   const { user, effectiveRole } = useAuth();
 
   const [activeTab, setActiveTab] = useState<TabId>("personeel");
+  const [showTemplateDropdown, setShowTemplateDropdown] = useState(false);
+  const [applyingTemplate, setApplyingTemplate] = useState(false);
+  const queryClient = useQueryClient();
 
   const { data: project, isLoading: projectLoading } =
     useSupabaseItem<Project>("projects", projectId);
@@ -52,6 +60,7 @@ export default function DagstaatEditorPage() {
     user?.id
   );
   const updateDagstaat = useUpdateDagstaat();
+  const { data: templates = [] } = useProjectTemplates(projectId);
 
   const isLoading = projectLoading || dagstaatLoading;
   const canManage = isManager(effectiveRole);
@@ -95,6 +104,82 @@ export default function DagstaatEditorPage() {
     } as Parameters<typeof updateDagstaat.mutateAsync>[0]);
   };
 
+  const handleApplyTemplate = async (templateId: string) => {
+    if (!dagstaat) return;
+    setApplyingTemplate(true);
+    setShowTemplateDropdown(false);
+
+    try {
+      const supabase = createClient();
+
+      // Fetch template personeel
+      const { data: tPersoneel } = await supabase
+        .from("template_personeel")
+        .select("*")
+        .eq("template_id", templateId)
+        .order("sort_order", { ascending: true });
+
+      // Fetch template materieel
+      const { data: tMaterieel } = await supabase
+        .from("template_materieel")
+        .select("*")
+        .eq("template_id", templateId)
+        .order("sort_order", { ascending: true });
+
+      // Get current max sort_order for personeel
+      const { data: existingP } = await supabase
+        .from("dagstaat_personeel")
+        .select("sort_order")
+        .eq("dagstaat_id", dagstaat.id)
+        .order("sort_order", { ascending: false })
+        .limit(1);
+
+      let nextPSort = (existingP?.[0]?.sort_order ?? -1) + 1;
+
+      // Insert personeel rows
+      if (tPersoneel && tPersoneel.length > 0) {
+        const rows = tPersoneel.map((tp) => ({
+          dagstaat_id: dagstaat.id,
+          employee_id: tp.employee_id,
+          unit: tp.unit,
+          quantity: tp.default_qty,
+          sort_order: nextPSort++,
+        }));
+        await supabase.from("dagstaat_personeel").insert(rows);
+      }
+
+      // Get current max sort_order for materieel
+      const { data: existingM } = await supabase
+        .from("dagstaat_materieel")
+        .select("sort_order")
+        .eq("dagstaat_id", dagstaat.id)
+        .order("sort_order", { ascending: false })
+        .limit(1);
+
+      let nextMSort = (existingM?.[0]?.sort_order ?? -1) + 1;
+
+      // Insert materieel rows
+      if (tMaterieel && tMaterieel.length > 0) {
+        const rows = tMaterieel.map((tm) => ({
+          dagstaat_id: dagstaat.id,
+          equipment_id: tm.equipment_id,
+          unit: tm.unit,
+          quantity: tm.default_qty,
+          sort_order: nextMSort++,
+        }));
+        await supabase.from("dagstaat_materieel").insert(rows);
+      }
+
+      // Refresh data
+      queryClient.invalidateQueries({ queryKey: ["dagstaat_personeel"] });
+      queryClient.invalidateQueries({ queryKey: ["dagstaat_materieel"] });
+    } catch (err) {
+      console.error("Failed to apply template:", err);
+    } finally {
+      setApplyingTemplate(false);
+    }
+  };
+
   if (isLoading) {
     return (
       <div>
@@ -124,9 +209,42 @@ export default function DagstaatEditorPage() {
         description={formatDateNL(date)}
         backHref={`/projecten/${projectId}`}
         actions={
-          <Badge variant={status as "draft" | "submitted" | "approved"}>
-            {statusConfig.label}
-          </Badge>
+          <div className="flex items-center gap-2">
+            {status === "draft" && templates.length > 0 && (
+              <div className="relative">
+                <button
+                  onClick={() => setShowTemplateDropdown(!showTemplateDropdown)}
+                  disabled={applyingTemplate}
+                  className="inline-flex items-center gap-1.5 rounded-xl border border-[#e43122] px-3 py-1.5 text-sm font-medium text-[#e43122] transition-colors duration-150 hover:bg-[#e43122]/5 disabled:opacity-50"
+                >
+                  {applyingTemplate ? "Bezig..." : "Standaard toepassen"}
+                  <ChevronDown className="h-3.5 w-3.5" />
+                </button>
+                {showTemplateDropdown && (
+                  <>
+                    <div
+                      className="fixed inset-0 z-40"
+                      onClick={() => setShowTemplateDropdown(false)}
+                    />
+                    <div className="absolute right-0 z-50 mt-1 min-w-[200px] rounded-xl border border-slate-200 bg-white py-1 shadow-lg">
+                      {templates.map((t) => (
+                        <button
+                          key={t.id}
+                          onClick={() => handleApplyTemplate(t.id)}
+                          className="block w-full px-4 py-2 text-left text-sm text-slate-700 hover:bg-slate-50"
+                        >
+                          {t.name}
+                        </button>
+                      ))}
+                    </div>
+                  </>
+                )}
+              </div>
+            )}
+            <Badge variant={status as "draft" | "submitted" | "approved"}>
+              {statusConfig.label}
+            </Badge>
+          </div>
         }
       />
 

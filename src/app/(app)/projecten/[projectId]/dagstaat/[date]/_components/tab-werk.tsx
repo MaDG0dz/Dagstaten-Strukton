@@ -4,6 +4,7 @@ import { useState, useCallback, useRef } from "react";
 import { Trash2, Plus } from "lucide-react";
 import { useActivities } from "@/lib/hooks/use-activities";
 import { useSubprojects } from "@/lib/hooks/use-projects";
+import { useProjectActivities } from "@/lib/hooks/use-templates";
 import {
   useDagstaatWerk,
   useInsertWerk,
@@ -163,12 +164,18 @@ export function TabWerk({ dagstaatId, projectId, isReadOnly }: TabWerkProps) {
   const { data: werkRows = [], isLoading } = useDagstaatWerk(dagstaatId);
   const { data: activities = [] } = useActivities();
   const { data: subprojects = [] } = useSubprojects(projectId);
+  const { data: projectActivities = [] } = useProjectActivities(projectId);
 
   const insertWerk = useInsertWerk();
   const updateWerk = useUpdateWerk();
   const deleteWerk = useDeleteWerk();
 
-  const activeActivities = activities.filter((a) => a.is_active);
+  // If project has linked activities, only show those; otherwise show all active
+  const linkedActivityIds = new Set(projectActivities.map((pa) => pa.activity_id));
+  const activeActivities =
+    projectActivities.length > 0
+      ? activities.filter((a) => a.is_active && linkedActivityIds.has(a.id))
+      : activities.filter((a) => a.is_active);
 
   const handleUpdate = useCallback(
     (id: string, field: string, value: unknown) => {

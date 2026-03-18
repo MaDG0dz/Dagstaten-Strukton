@@ -15,6 +15,8 @@ import { isAdmin } from "@/lib/constants/roles";
 import { ProjectForm } from "../_components/project-form";
 import { MembersSection } from "./_components/members-section";
 import { SubprojectsSection } from "./_components/subprojects-section";
+import { TemplatesSection } from "./_components/templates-section";
+import { ActivitiesSection } from "./_components/activities-section";
 import type { ProjectFormValues } from "@/lib/validations/project";
 
 export default function ProjectDetailPage() {
@@ -152,6 +154,16 @@ export default function ProjectDetailPage() {
       {/* Subprojects */}
       <div className="mb-8">
         <SubprojectsSection projectId={projectId} />
+      </div>
+
+      {/* Activities */}
+      <div className="mb-8">
+        <ActivitiesSection projectId={projectId} />
+      </div>
+
+      {/* Templates */}
+      <div className="mb-8">
+        <TemplatesSection projectId={projectId} />
       </div>
 
       {/* Edit SlideOver */}

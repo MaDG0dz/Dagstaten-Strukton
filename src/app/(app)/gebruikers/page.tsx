@@ -1,24 +1,25 @@
 "use client";
 
 import { useState } from "react";
-import { UserCog, UserPlus, KeyRound } from "lucide-react";
+import { UserCog, UserPlus, KeyRound, Pencil } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { PageHeader } from "@/components/ui/page-header";
 import { SearchInput } from "@/components/ui/search-input";
 import { DataTable, type Column } from "@/components/ui/data-table";
-import { Toggle } from "@/components/ui/toggle";
 import { EmptyState } from "@/components/ui/empty-state";
 import { useAuth } from "@/components/providers/auth-provider";
-import { useProfiles, useUpdateProfile } from "@/lib/hooks/use-profiles";
+import { useProfiles } from "@/lib/hooks/use-profiles";
 import type { Profile } from "@/lib/types/database";
-import { ROLE_LABELS, APP_ROLES, type AppRole } from "@/lib/constants/roles";
+import { ROLE_LABELS } from "@/lib/constants/roles";
 import { CreateUserModal } from "./_components/create-user-modal";
 import { ChangePasswordModal } from "./_components/change-password-modal";
+import { EditUserModal } from "./_components/edit-user-modal";
 
 export default function GebruikersPage() {
   const { effectiveRole } = useAuth();
   const [search, setSearch] = useState("");
   const [createModalOpen, setCreateModalOpen] = useState(false);
+  const [editingProfile, setEditingProfile] = useState<Profile | null>(null);
   const [passwordModal, setPasswordModal] = useState<{
     open: boolean;
     userId: string;
@@ -27,7 +28,6 @@ export default function GebruikersPage() {
 
   const queryClient = useQueryClient();
   const { data: profiles = [], isLoading } = useProfiles(search);
-  const updateProfile = useUpdateProfile();
 
   if (effectiveRole !== "beheerder") {
     return (
@@ -44,15 +44,11 @@ export default function GebruikersPage() {
     );
   }
 
-  const handleRoleChange = (profile: Profile, newRole: AppRole) => {
-    updateProfile.mutate({ id: profile.id, role: newRole });
-  };
-
-  const handleToggleActive = (profile: Profile) => {
-    updateProfile.mutate({ id: profile.id, is_active: !profile.is_active });
-  };
-
   const handleCreateSuccess = () => {
+    queryClient.invalidateQueries({ queryKey: ["profiles"] });
+  };
+
+  const handleEditSuccess = () => {
     queryClient.invalidateQueries({ queryKey: ["profiles"] });
   };
 
@@ -74,49 +70,56 @@ export default function GebruikersPage() {
       key: "role",
       header: "Rol",
       render: (profile) => (
-        <select
-          value={profile.role}
-          onChange={(e) => handleRoleChange(profile, e.target.value as AppRole)}
-          onClick={(e) => e.stopPropagation()}
-          className="rounded-xl border border-slate-200 px-2 py-1 text-sm transition-colors duration-150 focus:border-[#e43122] focus:outline-none focus:ring-4 focus:ring-[#e43122]/20"
-        >
-          {APP_ROLES.map((role) => (
-            <option key={role} value={role}>
-              {ROLE_LABELS[role]}
-            </option>
-          ))}
-        </select>
+        <span className="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-700">
+          {ROLE_LABELS[profile.role]}
+        </span>
       ),
     },
     {
       key: "status",
       header: "Status",
       render: (profile) => (
-        <Toggle
-          checked={profile.is_active}
-          onChange={() => handleToggleActive(profile)}
-          label={profile.is_active ? "Actief" : "Inactief"}
-        />
+        <span
+          className={
+            profile.is_active
+              ? "inline-flex items-center rounded-full bg-green-50 px-2.5 py-0.5 text-xs font-medium text-green-700"
+              : "inline-flex items-center rounded-full bg-red-50 px-2.5 py-0.5 text-xs font-medium text-red-700"
+          }
+        >
+          {profile.is_active ? "Actief" : "Inactief"}
+        </span>
       ),
     },
     {
       key: "actions",
       header: "",
       render: (profile) => (
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            setPasswordModal({
-              open: true,
-              userId: profile.id,
-              userName: profile.full_name,
-            });
-          }}
-          title="Wachtwoord wijzigen"
-          className="flex h-8 w-8 items-center justify-center rounded-lg text-slate-400 transition-colors duration-150 hover:bg-slate-100 hover:text-slate-600"
-        >
-          <KeyRound className="h-4 w-4" />
-        </button>
+        <div className="flex items-center gap-1">
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setEditingProfile(profile);
+            }}
+            title="Gebruiker bewerken"
+            className="flex h-8 w-8 items-center justify-center rounded-xl p-2 text-slate-400 transition-colors duration-150 hover:bg-slate-100 hover:text-slate-600"
+          >
+            <Pencil className="h-4 w-4" />
+          </button>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setPasswordModal({
+                open: true,
+                userId: profile.id,
+                userName: profile.full_name,
+              });
+            }}
+            title="Wachtwoord wijzigen"
+            className="flex h-8 w-8 items-center justify-center rounded-xl p-2 text-slate-400 transition-colors duration-150 hover:bg-slate-100 hover:text-slate-600"
+          >
+            <KeyRound className="h-4 w-4" />
+          </button>
+        </div>
       ),
     },
   ];
@@ -163,6 +166,13 @@ export default function GebruikersPage() {
         open={createModalOpen}
         onClose={() => setCreateModalOpen(false)}
         onSuccess={handleCreateSuccess}
+      />
+
+      <EditUserModal
+        open={editingProfile !== null}
+        onClose={() => setEditingProfile(null)}
+        profile={editingProfile}
+        onSuccess={handleEditSuccess}
       />
 
       <ChangePasswordModal

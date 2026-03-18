@@ -9,4 +9,4 @@ export const employeeSchema = z.object({
   is_active: z.boolean(),
 });
 
-export type EmployeeFormValues = z.input<typeof employeeSchema>;
+export type EmployeeFormValues = z.infer<typeof employeeSchema>;

@@ -11,7 +11,10 @@ import { SlideOver } from "@/components/ui/slide-over";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { EmptyState } from "@/components/ui/empty-state";
 import { CategoryTree } from "@/components/ui/category-tree";
+import { SortableCategoryTree } from "@/components/ui/sortable-category-tree";
 import { buildTree } from "@/lib/utils/build-tree";
+import { createClient } from "@/lib/supabase/client";
+import { useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "@/components/providers/auth-provider";
 import { isManager } from "@/lib/constants/roles";
 import { UNIT_LABELS } from "@/lib/constants/units";
@@ -53,6 +56,7 @@ export default function ActiviteitenPage() {
     selectedCategoryId || undefined
   );
 
+  const queryClient = useQueryClient();
   const createCategory = useCreateActivityCategory();
   const updateCategory = useUpdateActivityCategory();
   const deleteCategory = useDeleteActivityCategory();
@@ -102,6 +106,16 @@ export default function ActiviteitenPage() {
     if (selectedCategoryId === deletingCategory.id) {
       setSelectedCategoryId(null);
     }
+  };
+
+  const handleReorderCategories = async (updates: { id: string; sort_order: number }[]) => {
+    const supabase = createClient();
+    await Promise.all(
+      updates.map((u) =>
+        supabase.from("activity_categories").update({ sort_order: u.sort_order }).eq("id", u.id)
+      )
+    );
+    queryClient.invalidateQueries({ queryKey: ["activity_categories"] });
   };
 
   // Activity handlers
@@ -274,17 +288,29 @@ export default function ActiviteitenPage() {
           }`}
         >
           <div className="rounded-lg border border-slate-200 bg-white p-3">
-            <CategoryTree
-              nodes={tree}
-              selectedId={selectedCategoryId}
-              onSelect={(id) => {
-                setSelectedCategoryId(id || null);
-                setShowCategories(false);
-              }}
-              onAdd={canManage ? handleAddCategory : undefined}
-              onEdit={canManage ? handleEditCategory : undefined}
-              onDelete={canManage ? (cat) => setDeletingCategory(cat) : undefined}
-            />
+            {canManage ? (
+              <SortableCategoryTree
+                nodes={tree}
+                selectedId={selectedCategoryId}
+                onSelect={(id) => {
+                  setSelectedCategoryId(id || null);
+                  setShowCategories(false);
+                }}
+                onAdd={handleAddCategory}
+                onEdit={handleEditCategory}
+                onDelete={(cat) => setDeletingCategory(cat)}
+                onReorder={handleReorderCategories}
+              />
+            ) : (
+              <CategoryTree
+                nodes={tree}
+                selectedId={selectedCategoryId}
+                onSelect={(id) => {
+                  setSelectedCategoryId(id || null);
+                  setShowCategories(false);
+                }}
+              />
+            )}
           </div>
         </div>
 
@@ -337,7 +363,6 @@ export default function ActiviteitenPage() {
                 ? {
                     name: formState.data.name,
                     parent_id: formState.data.parent_id,
-                    sort_order: formState.data.sort_order,
                     is_active: formState.data.is_active,
                   }
                 : formState.data

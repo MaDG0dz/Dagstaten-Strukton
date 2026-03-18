@@ -11,7 +11,10 @@ import { SlideOver } from "@/components/ui/slide-over";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { EmptyState } from "@/components/ui/empty-state";
 import { CategoryTree } from "@/components/ui/category-tree";
+import { SortableCategoryTree } from "@/components/ui/sortable-category-tree";
 import { buildTree } from "@/lib/utils/build-tree";
+import { createClient } from "@/lib/supabase/client";
+import { useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "@/components/providers/auth-provider";
 import { isManager } from "@/lib/constants/roles";
 import { UNIT_LABELS } from "@/lib/constants/units";
@@ -53,6 +56,7 @@ export default function MaterialenPage() {
     selectedCategoryId || undefined
   );
 
+  const queryClient = useQueryClient();
   const createCategory = useCreateMaterialCategory();
   const updateCategory = useUpdateMaterialCategory();
   const deleteCategory = useDeleteMaterialCategory();
@@ -101,6 +105,16 @@ export default function MaterialenPage() {
     if (selectedCategoryId === deletingCategory.id) {
       setSelectedCategoryId(null);
     }
+  };
+
+  const handleReorderCategories = async (updates: { id: string; sort_order: number }[]) => {
+    const supabase = createClient();
+    await Promise.all(
+      updates.map((u) =>
+        supabase.from("material_categories").update({ sort_order: u.sort_order }).eq("id", u.id)
+      )
+    );
+    queryClient.invalidateQueries({ queryKey: ["material_categories"] });
   };
 
   // Material handlers
@@ -272,17 +286,29 @@ export default function MaterialenPage() {
           }`}
         >
           <div className="rounded-lg border border-slate-200 bg-white p-3">
-            <CategoryTree
-              nodes={tree}
-              selectedId={selectedCategoryId}
-              onSelect={(id) => {
-                setSelectedCategoryId(id || null);
-                setShowCategories(false);
-              }}
-              onAdd={canManage ? handleAddCategory : undefined}
-              onEdit={canManage ? handleEditCategory : undefined}
-              onDelete={canManage ? (cat) => setDeletingCategory(cat) : undefined}
-            />
+            {canManage ? (
+              <SortableCategoryTree
+                nodes={tree}
+                selectedId={selectedCategoryId}
+                onSelect={(id) => {
+                  setSelectedCategoryId(id || null);
+                  setShowCategories(false);
+                }}
+                onAdd={handleAddCategory}
+                onEdit={handleEditCategory}
+                onDelete={(cat) => setDeletingCategory(cat)}
+                onReorder={handleReorderCategories}
+              />
+            ) : (
+              <CategoryTree
+                nodes={tree}
+                selectedId={selectedCategoryId}
+                onSelect={(id) => {
+                  setSelectedCategoryId(id || null);
+                  setShowCategories(false);
+                }}
+              />
+            )}
           </div>
         </div>
 
@@ -335,7 +361,6 @@ export default function MaterialenPage() {
                 ? {
                     name: formState.data.name,
                     parent_id: formState.data.parent_id,
-                    sort_order: formState.data.sort_order,
                     is_active: formState.data.is_active,
                   }
                 : formState.data

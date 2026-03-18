@@ -100,7 +100,7 @@ export function Sidebar() {
                       "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-150 ease-out",
                       isActive
                         ? "border-l-[3px] border-[#e43122] bg-[rgba(228,49,34,0.12)] pl-[9px] text-white"
-                        : "border-l-[3px] border-transparent pl-[9px] text-slate-400 hover:bg-[#7316d1] hover:text-white"
+                        : "border-l-[3px] border-transparent pl-[9px] text-white/80 hover:bg-[#7316d1] hover:text-white"
                     )}
                   >
                     <item.icon className="h-[18px] w-[18px] shrink-0" />
@@ -120,7 +120,11 @@ export function Sidebar() {
 
         {/* User section */}
         <div className="px-4 py-3">
-          <div className="mb-2 flex items-center gap-3">
+          <Link
+            href="/profiel"
+            onClick={() => setIsOpen(false)}
+            className="mb-2 flex items-center gap-3 rounded-lg px-2 py-1.5 -mx-2 transition-colors duration-150 ease-out hover:bg-[#7316d1]"
+          >
             {/* Avatar circle */}
             <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#e43122] text-xs font-semibold text-white">
               {initials}
@@ -129,14 +133,14 @@ export function Sidebar() {
               <div className="truncate text-sm font-medium text-white">
                 {displayName}
               </div>
-              <span className="inline-block rounded bg-white/15 px-1.5 py-0.5 text-[10px] font-medium text-slate-400">
+              <span className="inline-block rounded bg-white/15 px-1.5 py-0.5 text-[10px] font-medium text-white/60">
                 {roleLabel}
               </span>
             </div>
-          </div>
+          </Link>
           <button
             onClick={signOut}
-            className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-slate-500 transition-colors duration-150 ease-out hover:bg-[#7316d1] hover:text-slate-300"
+            className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-white/60 transition-colors duration-150 ease-out hover:bg-[#7316d1] hover:text-white"
           >
             <LogOut className="h-4 w-4" />
             Uitloggen

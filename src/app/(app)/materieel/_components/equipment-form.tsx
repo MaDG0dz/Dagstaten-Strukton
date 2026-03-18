@@ -83,7 +83,7 @@ export function EquipmentForm({
 
       <FormField label="Dagtarief" error={errors.day_rate?.message}>
         <FormInput
-          {...register("day_rate")}
+          {...register("day_rate", { valueAsNumber: true })}
           type="number"
           step="0.01"
           placeholder="0.00"

@@ -5,7 +5,6 @@ const unitTypes = ["uur", "dag", "halve_dag", "stuks", "km", "m3", "ton", "liter
 export const materialCategorySchema = z.object({
   name: z.string().min(1, "Naam is verplicht"),
   parent_id: z.string().uuid("Ongeldige categorie").nullable().optional(),
-  sort_order: z.number().int("Moet een geheel getal zijn"),
   is_active: z.boolean(),
 });
 
@@ -18,5 +17,5 @@ export const materialSchema = z.object({
   is_active: z.boolean(),
 });
 
-export type MaterialCategoryFormValues = z.input<typeof materialCategorySchema>;
-export type MaterialFormValues = z.input<typeof materialSchema>;
+export type MaterialCategoryFormValues = z.infer<typeof materialCategorySchema>;
+export type MaterialFormValues = z.infer<typeof materialSchema>;

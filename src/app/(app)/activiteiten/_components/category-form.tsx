@@ -30,7 +30,6 @@ export function CategoryForm({
     defaultValues: {
       name: "",
       parent_id: null,
-      sort_order: 0,
       is_active: true,
       ...defaultValues,
     },
@@ -46,15 +45,6 @@ export function CategoryForm({
         <FormInput
           {...register("name")}
           placeholder="Categorienaam"
-          disabled={isLoading}
-        />
-      </FormField>
-
-      <FormField label="Sorteervolgorde" error={errors.sort_order?.message}>
-        <FormInput
-          {...register("sort_order")}
-          type="number"
-          placeholder="0"
           disabled={isLoading}
         />
       </FormField>

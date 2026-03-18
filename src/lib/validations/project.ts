@@ -7,6 +7,7 @@ export const projectSchema = z.object({
   name: z.string().min(2, "Projectnaam is verplicht (min. 2 tekens)"),
   description: z.string().nullable().optional(),
   client: z.string().nullable().optional(),
+  contact_client: z.string().nullable().optional(),
   location: z.string().nullable().optional(),
   start_date: z.string().nullable().optional(),
   end_date: z.string().nullable().optional(),
@@ -27,6 +28,6 @@ export const projectMemberSchema = z.object({
   role: z.enum(appRoles, { message: "Selecteer een rol" }),
 });
 
-export type ProjectFormValues = z.input<typeof projectSchema>;
-export type SubprojectFormValues = z.input<typeof subprojectSchema>;
-export type ProjectMemberFormValues = z.input<typeof projectMemberSchema>;
+export type ProjectFormValues = z.infer<typeof projectSchema>;
+export type SubprojectFormValues = z.infer<typeof subprojectSchema>;
+export type ProjectMemberFormValues = z.infer<typeof projectMemberSchema>;

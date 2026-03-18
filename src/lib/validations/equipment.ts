@@ -11,4 +11,4 @@ export const equipmentSchema = z.object({
   is_active: z.boolean(),
 });
 
-export type EquipmentFormValues = z.input<typeof equipmentSchema>;
+export type EquipmentFormValues = z.infer<typeof equipmentSchema>;

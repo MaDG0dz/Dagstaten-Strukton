@@ -19,6 +19,7 @@ export interface Project {
   name: string;
   description: string | null;
   client: string | null;
+  contact_client: string | null;
   location: string | null;
   start_date: string | null;
   end_date: string | null;

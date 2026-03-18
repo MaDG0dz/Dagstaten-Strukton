@@ -74,7 +74,7 @@ export function MaterialForm({
 
       <FormField label="Prijs per eenheid" error={errors.unit_price?.message}>
         <FormInput
-          {...register("unit_price")}
+          {...register("unit_price", { valueAsNumber: true })}
           type="number"
           step="0.01"
           placeholder="0.00"

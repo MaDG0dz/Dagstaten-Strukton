@@ -3,7 +3,7 @@ export type AppRole = (typeof APP_ROLES)[number];
 
 export const ROLE_LABELS: Record<AppRole, string> = {
   beheerder: "Beheerder",
-  sr_uitvoerder: "Sr. Uitvoerder",
+  sr_uitvoerder: "Manager",
   uitvoerder: "Uitvoerder",
   voorman: "Voorman",
 };

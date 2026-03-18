@@ -45,12 +45,17 @@ export default function ProjectenPage() {
   };
 
   const handleSubmit = async (values: ProjectFormValues) => {
-    if (editingItem) {
-      await updateProject.mutateAsync({ id: editingItem.id, ...values });
-    } else {
-      await createProject.mutateAsync(values);
+    try {
+      if (editingItem) {
+        await updateProject.mutateAsync({ id: editingItem.id, ...values });
+      } else {
+        await createProject.mutateAsync(values);
+      }
+      handleClose();
+    } catch (err) {
+      console.error("Project opslaan mislukt:", err);
+      alert("Fout bij opslaan: " + (err instanceof Error ? err.message : "Onbekende fout"));
     }
-    handleClose();
   };
 
   const handleNavigate = (project: Project) => {

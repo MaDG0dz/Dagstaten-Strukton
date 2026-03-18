@@ -32,6 +32,7 @@ export function ProjectForm({
       name: "",
       description: null,
       client: null,
+      contact_client: null,
       location: null,
       start_date: null,
       end_date: null,
@@ -73,6 +74,14 @@ export function ProjectForm({
         <FormInput
           {...register("client")}
           placeholder="Naam opdrachtgever"
+          disabled={isLoading}
+        />
+      </FormField>
+
+      <FormField label="Contact opdrachtgever" error={errors.contact_client?.message}>
+        <FormInput
+          {...register("contact_client")}
+          placeholder="Naam + telefoonnummer contactpersoon"
           disabled={isLoading}
         />
       </FormField>

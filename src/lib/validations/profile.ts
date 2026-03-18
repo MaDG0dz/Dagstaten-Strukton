@@ -7,4 +7,4 @@ export const profileUpdateSchema = z.object({
   is_active: z.boolean(),
 });
 
-export type ProfileUpdateFormValues = z.input<typeof profileUpdateSchema>;
+export type ProfileUpdateFormValues = z.infer<typeof profileUpdateSchema>;

@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { UserCog } from "lucide-react";
+import { UserCog, UserPlus, KeyRound } from "lucide-react";
+import { useQueryClient } from "@tanstack/react-query";
 import { PageHeader } from "@/components/ui/page-header";
 import { SearchInput } from "@/components/ui/search-input";
 import { DataTable, type Column } from "@/components/ui/data-table";
@@ -11,11 +12,20 @@ import { useAuth } from "@/components/providers/auth-provider";
 import { useProfiles, useUpdateProfile } from "@/lib/hooks/use-profiles";
 import type { Profile } from "@/lib/types/database";
 import { ROLE_LABELS, APP_ROLES, type AppRole } from "@/lib/constants/roles";
+import { CreateUserModal } from "./_components/create-user-modal";
+import { ChangePasswordModal } from "./_components/change-password-modal";
 
 export default function GebruikersPage() {
   const { effectiveRole } = useAuth();
   const [search, setSearch] = useState("");
+  const [createModalOpen, setCreateModalOpen] = useState(false);
+  const [passwordModal, setPasswordModal] = useState<{
+    open: boolean;
+    userId: string;
+    userName: string;
+  }>({ open: false, userId: "", userName: "" });
 
+  const queryClient = useQueryClient();
   const { data: profiles = [], isLoading } = useProfiles(search);
   const updateProfile = useUpdateProfile();
 
@@ -40,6 +50,10 @@ export default function GebruikersPage() {
 
   const handleToggleActive = (profile: Profile) => {
     updateProfile.mutate({ id: profile.id, is_active: !profile.is_active });
+  };
+
+  const handleCreateSuccess = () => {
+    queryClient.invalidateQueries({ queryKey: ["profiles"] });
   };
 
   const columns: Column<Profile>[] = [
@@ -85,6 +99,26 @@ export default function GebruikersPage() {
         />
       ),
     },
+    {
+      key: "actions",
+      header: "",
+      render: (profile) => (
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            setPasswordModal({
+              open: true,
+              userId: profile.id,
+              userName: profile.full_name,
+            });
+          }}
+          title="Wachtwoord wijzigen"
+          className="flex h-8 w-8 items-center justify-center rounded-lg text-slate-400 transition-colors duration-150 hover:bg-slate-100 hover:text-slate-600"
+        >
+          <KeyRound className="h-4 w-4" />
+        </button>
+      ),
+    },
   ];
 
   return (
@@ -92,6 +126,15 @@ export default function GebruikersPage() {
       <PageHeader
         title="Gebruikers"
         description="Beheer gebruikersrollen en toegang"
+        actions={
+          <button
+            onClick={() => setCreateModalOpen(true)}
+            className="inline-flex h-10 items-center gap-2 rounded-xl bg-[#e43122] px-4 text-sm font-medium text-white transition-colors duration-150 hover:bg-[#c42a1d]"
+          >
+            <UserPlus className="h-4 w-4" />
+            Gebruiker toevoegen
+          </button>
+        }
       />
 
       <div className="mb-4">
@@ -114,6 +157,21 @@ export default function GebruikersPage() {
             description="Er zijn nog geen gebruikers"
           />
         }
+      />
+
+      <CreateUserModal
+        open={createModalOpen}
+        onClose={() => setCreateModalOpen(false)}
+        onSuccess={handleCreateSuccess}
+      />
+
+      <ChangePasswordModal
+        open={passwordModal.open}
+        onClose={() =>
+          setPasswordModal({ open: false, userId: "", userName: "" })
+        }
+        userId={passwordModal.userId}
+        userName={passwordModal.userName}
       />
     </div>
   );

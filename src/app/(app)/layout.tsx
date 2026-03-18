@@ -5,6 +5,8 @@ import { QueryProvider } from "@/components/providers/query-provider";
 import { OfflineProvider, useOffline } from "@/components/providers/offline-provider";
 import { Sidebar } from "@/components/layout/sidebar";
 import { MobileNav } from "@/components/layout/mobile-nav";
+import { useAuth } from "@/components/providers/auth-provider";
+import { PageSkeleton } from "@/components/ui/loading-skeleton";
 import { WifiOff } from "lucide-react";
 
 function OfflineBanner() {
@@ -22,6 +24,16 @@ function OfflineBanner() {
 }
 
 function AppShell({ children }: { children: React.ReactNode }) {
+  const { loading } = useAuth();
+
+  if (loading) {
+    return (
+      <div className="min-h-screen">
+        <PageSkeleton />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen">
       <Sidebar />

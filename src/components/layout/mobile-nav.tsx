@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils/cn";
 import { NAV_ITEMS } from "@/lib/constants/nav-items";
 import { useAuth } from "@/components/providers/auth-provider";
 
-const MOBILE_NAV_ITEMS = NAV_ITEMS.slice(0, 4); // Show first 4 on mobile bottom bar
+const MOBILE_NAV_ITEMS = NAV_ITEMS.slice(0, 4);
 
 export function MobileNav() {
   const pathname = usePathname();
@@ -17,8 +17,11 @@ export function MobileNav() {
   );
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-30 border-t border-gray-200 bg-white md:hidden">
-      <div className="flex items-center justify-around px-2 py-1">
+    <nav className="fixed bottom-0 left-0 right-0 z-30 border-t border-slate-200 bg-white shadow-[0_-1px_3px_rgba(0,0,0,0.05)] md:hidden">
+      <div
+        className="flex items-center justify-around px-2 py-1"
+        style={{ paddingBottom: "max(0.25rem, env(safe-area-inset-bottom))" }}
+      >
         {visibleItems.map((item) => {
           const isActive = pathname.startsWith(item.href);
           return (
@@ -26,12 +29,19 @@ export function MobileNav() {
               key={item.href}
               href={item.href}
               className={cn(
-                "flex flex-col items-center gap-0.5 px-3 py-2 text-xs",
-                isActive ? "text-primary" : "text-gray-500"
+                "flex flex-col items-center gap-0.5 rounded-lg px-3 py-2 transition-colors duration-150 ease-out",
+                isActive
+                  ? "text-[#e43122]"
+                  : "text-slate-400 hover:text-slate-600"
               )}
             >
               <item.icon className="h-5 w-5" />
-              <span className="truncate">{item.label}</span>
+              <span
+                className="truncate font-medium"
+                style={{ fontSize: "10px", lineHeight: "14px" }}
+              >
+                {item.label}
+              </span>
             </Link>
           );
         })}

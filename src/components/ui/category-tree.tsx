@@ -39,12 +39,20 @@ function TreeNodeItem<T extends { id: string; name: string; is_active: boolean }
     <div>
       <div
         className={cn(
-          "group flex items-center gap-1 rounded-lg px-2 py-1.5 text-sm transition-colors",
-          isSelected ? "bg-primary/10 text-primary font-medium" : "text-gray-700 hover:bg-gray-100",
+          "group relative flex items-center gap-1 rounded-lg px-2 py-1.5 text-sm transition-colors duration-150",
+          isSelected ? "bg-[#e43122]/10 text-[#e43122] font-medium" : "text-slate-700 hover:bg-slate-100",
           !node.item.is_active && "opacity-50"
         )}
         style={{ paddingLeft: `${level * 16 + 8}px` }}
       >
+        {/* Indentation line */}
+        {level > 0 && (
+          <span
+            className="absolute left-0 top-0 h-full border-l border-slate-200"
+            style={{ left: `${(level - 1) * 16 + 16}px` }}
+          />
+        )}
+
         <button
           onClick={() => hasChildren && setExpanded(!expanded)}
           className={cn("shrink-0 p-0.5", !hasChildren && "invisible")}
@@ -62,7 +70,7 @@ function TreeNodeItem<T extends { id: string; name: string; is_active: boolean }
         >
           {node.item.name}
           {hasChildren && (
-            <span className="ml-1 text-xs text-gray-400">({node.children.length})</span>
+            <span className="ml-1 text-xs text-slate-400">({node.children.length})</span>
           )}
         </button>
 
@@ -70,7 +78,7 @@ function TreeNodeItem<T extends { id: string; name: string; is_active: boolean }
           {onAdd && (
             <button
               onClick={(e) => { e.stopPropagation(); onAdd(node.item.id); }}
-              className="rounded p-1 text-gray-400 hover:bg-gray-200 hover:text-gray-600"
+              className="rounded p-1 text-slate-400 transition-colors duration-150 hover:bg-slate-200 hover:text-slate-600"
               title="Subcategorie toevoegen"
             >
               <Plus className="h-3 w-3" />
@@ -79,7 +87,7 @@ function TreeNodeItem<T extends { id: string; name: string; is_active: boolean }
           {onEdit && (
             <button
               onClick={(e) => { e.stopPropagation(); onEdit(node.item); }}
-              className="rounded p-1 text-gray-400 hover:bg-gray-200 hover:text-gray-600"
+              className="rounded p-1 text-slate-400 transition-colors duration-150 hover:bg-slate-200 hover:text-slate-600"
               title="Bewerken"
             >
               <Pencil className="h-3 w-3" />
@@ -88,7 +96,7 @@ function TreeNodeItem<T extends { id: string; name: string; is_active: boolean }
           {onDelete && (
             <button
               onClick={(e) => { e.stopPropagation(); onDelete(node.item); }}
-              className="rounded p-1 text-gray-400 hover:bg-red-100 hover:text-red-600"
+              className="rounded p-1 text-slate-400 transition-colors duration-150 hover:bg-red-100 hover:text-red-600"
               title="Verwijderen"
             >
               <Trash2 className="h-3 w-3" />
@@ -131,8 +139,8 @@ export function CategoryTree<T extends { id: string; name: string; is_active: bo
       <button
         onClick={() => onSelect("")}
         className={cn(
-          "w-full rounded-lg px-3 py-1.5 text-left text-sm transition-colors",
-          !selectedId ? "bg-primary/10 text-primary font-medium" : "text-gray-700 hover:bg-gray-100"
+          "w-full rounded-lg px-3 py-1.5 text-left text-sm transition-colors duration-150",
+          !selectedId ? "bg-[#e43122]/10 text-[#e43122] font-medium" : "text-slate-700 hover:bg-slate-100"
         )}
       >
         Alle items
@@ -154,7 +162,7 @@ export function CategoryTree<T extends { id: string; name: string; is_active: bo
       {onAdd && (
         <button
           onClick={() => onAdd(null)}
-          className="flex w-full items-center gap-2 rounded-lg px-3 py-1.5 text-sm text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+          className="flex w-full items-center gap-2 rounded-lg px-3 py-1.5 text-sm text-slate-500 transition-colors duration-150 hover:bg-slate-100 hover:text-slate-700"
         >
           <Plus className="h-3.5 w-3.5" />
           Categorie toevoegen

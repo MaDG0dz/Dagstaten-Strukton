@@ -133,7 +133,7 @@ export default function MedewerkersPage() {
                     e.stopPropagation();
                     handleEdit(emp);
                   }}
-                  className="rounded-lg p-1.5 text-gray-400 hover:bg-gray-100 hover:text-gray-600"
+                  className="rounded-xl p-1.5 text-slate-400 hover:bg-slate-100 hover:text-slate-600"
                   title="Bewerken"
                 >
                   <Pencil className="h-4 w-4" />
@@ -143,7 +143,7 @@ export default function MedewerkersPage() {
                     e.stopPropagation();
                     setDeletingItem(emp);
                   }}
-                  className="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-600"
+                  className="rounded-xl p-1.5 text-slate-400 hover:bg-red-50 hover:text-red-600"
                   title="Verwijderen"
                 >
                   <Trash2 className="h-4 w-4" />
@@ -163,7 +163,7 @@ export default function MedewerkersPage() {
           canManage ? (
             <button
               onClick={handleAdd}
-              className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary/90"
+              className="inline-flex items-center gap-2 rounded-xl bg-[#e43122] px-4 py-2 text-sm font-medium text-white hover:bg-[#c42a1d] active:scale-[0.98] transition-all duration-150"
             >
               <Plus className="h-4 w-4" />
               Toevoegen

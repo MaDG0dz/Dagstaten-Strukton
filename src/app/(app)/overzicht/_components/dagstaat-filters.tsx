@@ -32,7 +32,7 @@ export function DagstaatFilters({
       <select
         value={projectId}
         onChange={(e) => onProjectChange(e.target.value)}
-        className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+        className="rounded-xl border border-slate-200 px-3 py-2 text-sm transition-colors duration-150 focus:border-[#e43122] focus:outline-none focus:ring-4 focus:ring-[#e43122]/20"
       >
         <option value="">Alle projecten</option>
         {projects?.map((p) => (
@@ -45,7 +45,7 @@ export function DagstaatFilters({
       <select
         value={status}
         onChange={(e) => onStatusChange(e.target.value)}
-        className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+        className="rounded-xl border border-slate-200 px-3 py-2 text-sm transition-colors duration-150 focus:border-[#e43122] focus:outline-none focus:ring-4 focus:ring-[#e43122]/20"
       >
         <option value="">Alle statussen</option>
         {(["draft", "submitted", "approved"] as DagstaatStatus[]).map((s) => (
@@ -59,7 +59,7 @@ export function DagstaatFilters({
         type="date"
         value={dateFrom}
         onChange={(e) => onDateFromChange(e.target.value)}
-        className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+        className="rounded-xl border border-slate-200 px-3 py-2 text-sm transition-colors duration-150 focus:border-[#e43122] focus:outline-none focus:ring-4 focus:ring-[#e43122]/20"
         placeholder="Vanaf"
       />
 
@@ -67,7 +67,7 @@ export function DagstaatFilters({
         type="date"
         value={dateTo}
         onChange={(e) => onDateToChange(e.target.value)}
-        className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+        className="rounded-xl border border-slate-200 px-3 py-2 text-sm transition-colors duration-150 focus:border-[#e43122] focus:outline-none focus:ring-4 focus:ring-[#e43122]/20"
         placeholder="Tot"
       />
     </div>

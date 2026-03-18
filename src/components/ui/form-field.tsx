@@ -11,12 +11,12 @@ interface FormFieldProps {
 export function FormField({ label, error, children, className }: FormFieldProps) {
   return (
     <div className={cn("space-y-1.5", className)}>
-      <label className="block text-sm font-medium text-gray-700">
+      <label className="block text-sm font-medium text-slate-700">
         {label}
       </label>
       {children}
       {error && (
-        <p className="text-xs text-red-600">{error}</p>
+        <p className="flex items-center gap-1 text-xs text-red-500">{error}</p>
       )}
     </div>
   );
@@ -29,9 +29,10 @@ export function FormInput({
   return (
     <input
       className={cn(
-        "w-full rounded-lg border border-gray-300 px-3 py-2 text-sm",
-        "focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary",
-        "disabled:bg-gray-50 disabled:text-gray-500",
+        "h-11 w-full rounded-xl border border-slate-200 px-3.5 text-sm text-slate-900",
+        "transition-shadow duration-150",
+        "focus:border-[#e43122] focus:outline-none focus:ring-4 focus:ring-[#e43122]/20",
+        "disabled:bg-slate-50 disabled:text-slate-500",
         className
       )}
       {...props}
@@ -47,9 +48,10 @@ export function FormSelect({
   return (
     <select
       className={cn(
-        "w-full rounded-lg border border-gray-300 px-3 py-2 text-sm",
-        "focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary",
-        "disabled:bg-gray-50 disabled:text-gray-500",
+        "h-11 w-full rounded-xl border border-slate-200 px-3.5 text-sm text-slate-900",
+        "transition-shadow duration-150",
+        "focus:border-[#e43122] focus:outline-none focus:ring-4 focus:ring-[#e43122]/20",
+        "disabled:bg-slate-50 disabled:text-slate-500",
         className
       )}
       {...props}
@@ -66,9 +68,10 @@ export function FormTextarea({
   return (
     <textarea
       className={cn(
-        "w-full rounded-lg border border-gray-300 px-3 py-2 text-sm",
-        "focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary",
-        "disabled:bg-gray-50 disabled:text-gray-500",
+        "w-full rounded-xl border border-slate-200 px-3.5 py-3 text-sm text-slate-900",
+        "transition-shadow duration-150",
+        "focus:border-[#e43122] focus:outline-none focus:ring-4 focus:ring-[#e43122]/20",
+        "disabled:bg-slate-50 disabled:text-slate-500",
         className
       )}
       {...props}

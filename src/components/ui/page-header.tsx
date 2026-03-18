@@ -16,15 +16,17 @@ export function PageHeader({ title, description, backHref, actions }: PageHeader
         {backHref && (
           <Link
             href={backHref}
-            className="mt-1 rounded-lg p-1.5 text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+            className="mt-1 flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 text-slate-500 transition-colors duration-150 hover:bg-slate-50 hover:text-slate-700"
           >
-            <ArrowLeft className="h-5 w-5" />
+            <ArrowLeft className="h-4 w-4" />
           </Link>
         )}
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">{title}</h1>
+          <h1 className="font-[family-name:var(--font-heading)] text-2xl font-bold tracking-tight text-slate-900">
+            {title}
+          </h1>
           {description && (
-            <p className="mt-0.5 text-sm text-gray-500">{description}</p>
+            <p className="mt-0.5 text-sm text-slate-500">{description}</p>
           )}
         </div>
       </div>

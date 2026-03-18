@@ -46,13 +46,13 @@ export default function ProjectDetailPage() {
     return (
       <div>
         <div className="mb-6">
-          <div className="h-8 w-48 animate-pulse rounded-lg bg-gray-200" />
-          <div className="mt-2 h-4 w-32 animate-pulse rounded-lg bg-gray-100" />
+          <div className="h-8 w-48 animate-pulse rounded-lg bg-slate-200" />
+          <div className="mt-2 h-4 w-32 animate-pulse rounded-lg bg-slate-100" />
         </div>
         <div className="space-y-6">
-          <div className="h-40 animate-pulse rounded-xl bg-gray-50" />
-          <div className="h-40 animate-pulse rounded-xl bg-gray-50" />
-          <div className="h-40 animate-pulse rounded-xl bg-gray-50" />
+          <div className="h-40 animate-pulse rounded-xl bg-slate-50" />
+          <div className="h-40 animate-pulse rounded-xl bg-slate-50" />
+          <div className="h-40 animate-pulse rounded-xl bg-slate-50" />
         </div>
       </div>
     );
@@ -61,7 +61,7 @@ export default function ProjectDetailPage() {
   if (!project) {
     return (
       <div className="py-12 text-center">
-        <p className="text-gray-500">Project niet gevonden.</p>
+        <p className="text-slate-500">Project niet gevonden.</p>
       </div>
     );
   }
@@ -75,7 +75,7 @@ export default function ProjectDetailPage() {
           canManage ? (
             <button
               onClick={() => setIsEditOpen(true)}
-              className="inline-flex items-center gap-2 rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+              className="inline-flex items-center gap-2 rounded-xl border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700 transition-colors duration-150 hover:bg-slate-50"
             >
               <Pencil className="h-4 w-4" />
               Bewerken
@@ -85,9 +85,9 @@ export default function ProjectDetailPage() {
       />
 
       {/* Project info */}
-      <div className="mb-8 rounded-xl border border-gray-200 bg-white p-5">
+      <div className="mb-8 rounded-xl border border-slate-200 bg-white p-5">
         <div className="mb-3 flex items-center gap-3">
-          <span className="text-sm font-medium text-gray-500">
+          <span className="text-sm font-medium text-slate-500">
             {project.code}
           </span>
           <Badge variant={project.is_active ? "active" : "inactive"}>
@@ -96,33 +96,33 @@ export default function ProjectDetailPage() {
         </div>
 
         {project.description && (
-          <p className="mb-4 text-sm text-gray-600">{project.description}</p>
+          <p className="mb-4 text-sm text-slate-600">{project.description}</p>
         )}
 
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {project.client && (
-            <div className="flex items-center gap-2 text-sm text-gray-600">
-              <Building2 className="h-4 w-4 shrink-0 text-gray-400" />
+            <div className="flex items-center gap-2 text-sm text-slate-600">
+              <Building2 className="h-4 w-4 shrink-0 text-slate-400" />
               <div>
-                <p className="text-xs text-gray-400">Opdrachtgever</p>
+                <p className="text-xs text-slate-400">Opdrachtgever</p>
                 <p>{project.client}</p>
               </div>
             </div>
           )}
           {project.location && (
-            <div className="flex items-center gap-2 text-sm text-gray-600">
-              <MapPin className="h-4 w-4 shrink-0 text-gray-400" />
+            <div className="flex items-center gap-2 text-sm text-slate-600">
+              <MapPin className="h-4 w-4 shrink-0 text-slate-400" />
               <div>
-                <p className="text-xs text-gray-400">Locatie</p>
+                <p className="text-xs text-slate-400">Locatie</p>
                 <p>{project.location}</p>
               </div>
             </div>
           )}
           {(project.start_date || project.end_date) && (
-            <div className="flex items-center gap-2 text-sm text-gray-600">
-              <Calendar className="h-4 w-4 shrink-0 text-gray-400" />
+            <div className="flex items-center gap-2 text-sm text-slate-600">
+              <Calendar className="h-4 w-4 shrink-0 text-slate-400" />
               <div>
-                <p className="text-xs text-gray-400">Periode</p>
+                <p className="text-xs text-slate-400">Periode</p>
                 <p>
                   {formatDate(project.start_date) ?? "..."} -{" "}
                   {formatDate(project.end_date) ?? "..."}
@@ -137,7 +137,7 @@ export default function ProjectDetailPage() {
       <div className="mb-8">
         <Link
           href={`/projecten/${projectId}/dagstaat`}
-          className="inline-flex items-center gap-2 rounded-lg border border-gray-300 px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
+          className="inline-flex items-center gap-2 rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-medium text-slate-700 transition-colors duration-150 hover:bg-slate-50"
         >
           <ClipboardList className="h-4 w-4" />
           Dagstaten bekijken

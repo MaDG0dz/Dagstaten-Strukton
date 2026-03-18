@@ -40,21 +40,23 @@ export function Modal({ open, onClose, title, children, size = "md" }: ModalProp
         if (e.target === dialogRef.current) onClose();
       }}
       className={cn(
-        "w-full rounded-xl bg-white p-0 shadow-xl backdrop:bg-black/50",
+        "w-full rounded-2xl border border-slate-200 bg-white p-0 shadow-2xl backdrop:bg-slate-900/40 backdrop:backdrop-blur-sm",
         "open:animate-in open:fade-in-0 open:zoom-in-95",
         sizeClasses[size]
       )}
     >
-      <div className="flex items-center justify-between border-b border-gray-200 px-5 py-4">
-        <h2 className="text-lg font-semibold text-gray-900">{title}</h2>
+      <div className="flex items-center justify-between border-b border-slate-100 px-6 py-4">
+        <h2 className="font-[family-name:var(--font-heading)] text-lg font-semibold text-slate-900">
+          {title}
+        </h2>
         <button
           onClick={onClose}
-          className="rounded-lg p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-600"
+          className="flex h-8 w-8 items-center justify-center rounded-lg text-slate-400 transition-colors duration-150 hover:bg-slate-100 hover:text-slate-600"
         >
           <X className="h-5 w-5" />
         </button>
       </div>
-      <div className="px-5 py-4">{children}</div>
+      <div className="px-6 py-5">{children}</div>
     </dialog>
   );
 }

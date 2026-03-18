@@ -74,7 +74,7 @@ export function EmployeeForm({
             onChange={(checked) => setValue("is_subcontractor", checked)}
             disabled={isLoading}
           />
-          <span className="text-sm text-gray-600">
+          <span className="text-sm text-slate-600">
             {isSubcontractor ? "Ja" : "Nee"}
           </span>
         </div>
@@ -97,25 +97,25 @@ export function EmployeeForm({
             onChange={(checked) => setValue("is_active", checked)}
             disabled={isLoading}
           />
-          <span className="text-sm text-gray-600">
+          <span className="text-sm text-slate-600">
             {isActive ? "Actief" : "Inactief"}
           </span>
         </div>
       </FormField>
 
-      <div className="flex justify-end gap-3 border-t border-gray-200 pt-4">
+      <div className="flex justify-end gap-3 border-t border-slate-200 pt-4">
         <button
           type="button"
           onClick={onCancel}
           disabled={isLoading}
-          className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50"
+          className="rounded-xl border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700 transition-colors duration-150 hover:bg-slate-50 disabled:opacity-50"
         >
           Annuleren
         </button>
         <button
           type="submit"
           disabled={isLoading}
-          className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary/90 disabled:opacity-50"
+          className="rounded-xl bg-[#e43122] px-4 py-2 text-sm font-medium text-white hover:bg-[#c42a1d] active:scale-[0.98] transition-all duration-150 disabled:opacity-50"
         >
           {isLoading ? "Opslaan..." : "Opslaan"}
         </button>

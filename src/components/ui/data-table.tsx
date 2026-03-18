@@ -40,15 +40,15 @@ export function DataTable<T>({
   return (
     <>
       {/* Desktop table */}
-      <div className="hidden overflow-hidden rounded-xl border border-gray-200 sm:block">
-        <table className="w-full text-left text-sm">
-          <thead className="border-b border-gray-200 bg-gray-50">
+      <div className="hidden overflow-hidden rounded-xl border border-slate-200 sm:block">
+        <table className="w-full text-left">
+          <thead className="border-b border-slate-200 bg-slate-50/80">
             <tr>
               {columns.map((col) => (
                 <th
                   key={col.key}
                   className={cn(
-                    "px-4 py-3 font-medium text-gray-600",
+                    "px-4 py-3 text-[11px] uppercase tracking-wider font-semibold text-slate-500",
                     col.hideOnMobile && "hidden md:table-cell",
                     col.className
                   )}
@@ -58,13 +58,13 @@ export function DataTable<T>({
               ))}
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-100">
+          <tbody className="divide-y divide-slate-100">
             {data.map((row) => (
               <tr
                 key={rowKey(row)}
                 onClick={() => onRowClick?.(row)}
                 className={cn(
-                  "bg-white transition-colors hover:bg-gray-50",
+                  "bg-white transition-colors duration-150 hover:bg-slate-50/50",
                   onRowClick && "cursor-pointer"
                 )}
               >
@@ -72,7 +72,7 @@ export function DataTable<T>({
                   <td
                     key={col.key}
                     className={cn(
-                      "px-4 py-3 text-gray-900",
+                      "px-4 py-3.5 text-sm text-slate-700",
                       col.hideOnMobile && "hidden md:table-cell",
                       col.className
                     )}
@@ -93,17 +93,17 @@ export function DataTable<T>({
             key={rowKey(row)}
             onClick={() => onRowClick?.(row)}
             className={cn(
-              "rounded-xl border border-gray-200 bg-white p-4",
-              onRowClick && "cursor-pointer active:bg-gray-50"
+              "rounded-xl border border-slate-200 bg-white p-4 transition-shadow duration-150 hover:shadow-sm",
+              onRowClick && "cursor-pointer active:bg-slate-50"
             )}
           >
             <div className="space-y-2">
               {columns.map((col) => (
                 <div key={col.key} className="flex items-center justify-between gap-2">
-                  <span className="text-xs font-medium text-gray-500">
+                  <span className="text-[11px] uppercase tracking-wider font-medium text-slate-400">
                     {col.header}
                   </span>
-                  <span className="text-sm text-gray-900">{col.render(row)}</span>
+                  <span className="text-sm text-slate-700">{col.render(row)}</span>
                 </div>
               ))}
             </div>

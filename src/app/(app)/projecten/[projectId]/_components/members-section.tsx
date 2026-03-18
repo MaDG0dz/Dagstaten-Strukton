@@ -60,11 +60,11 @@ export function MembersSection({ projectId }: MembersSectionProps) {
   return (
     <section>
       <div className="mb-4 flex items-center justify-between">
-        <h2 className="text-lg font-semibold text-gray-900">Teamleden</h2>
+        <h2 className="text-lg font-semibold text-slate-900">Teamleden</h2>
         {canManage && (
           <button
             onClick={() => setIsModalOpen(true)}
-            className="inline-flex items-center gap-1.5 rounded-lg border border-gray-300 px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
+            className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 px-3 py-1.5 text-sm font-medium text-slate-700 transition-colors duration-150 hover:bg-slate-50"
           >
             <Plus className="h-4 w-4" />
             Lid toevoegen
@@ -77,7 +77,7 @@ export function MembersSection({ projectId }: MembersSectionProps) {
           {Array.from({ length: 2 }).map((_, i) => (
             <div
               key={i}
-              className="h-12 animate-pulse rounded-lg bg-gray-50"
+              className="h-12 animate-pulse rounded-lg bg-slate-50"
             />
           ))}
         </div>
@@ -88,33 +88,33 @@ export function MembersSection({ projectId }: MembersSectionProps) {
           description="Voeg teamleden toe aan dit project"
         />
       ) : (
-        <div className="overflow-hidden rounded-lg border border-gray-200">
+        <div className="overflow-hidden rounded-lg border border-slate-200">
           <table className="w-full text-sm">
-            <thead className="bg-gray-50">
+            <thead className="bg-slate-50">
               <tr>
-                <th className="px-4 py-2.5 text-left font-medium text-gray-600">
+                <th className="px-4 py-2.5 text-left font-medium text-slate-600">
                   Naam
                 </th>
-                <th className="hidden px-4 py-2.5 text-left font-medium text-gray-600 sm:table-cell">
+                <th className="hidden px-4 py-2.5 text-left font-medium text-slate-600 sm:table-cell">
                   E-mail
                 </th>
-                <th className="px-4 py-2.5 text-left font-medium text-gray-600">
+                <th className="px-4 py-2.5 text-left font-medium text-slate-600">
                   Rol
                 </th>
                 {canManage && (
-                  <th className="w-16 px-4 py-2.5 text-right font-medium text-gray-600">
+                  <th className="w-16 px-4 py-2.5 text-right font-medium text-slate-600">
                     {/* Verwijderen */}
                   </th>
                 )}
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100">
+            <tbody className="divide-y divide-slate-100">
               {members.map((member) => (
-                <tr key={member.id} className="hover:bg-gray-50">
-                  <td className="px-4 py-2.5 font-medium text-gray-900">
+                <tr key={member.id} className="hover:bg-slate-50">
+                  <td className="px-4 py-2.5 font-medium text-slate-900">
                     {member.profile?.full_name ?? "\u2014"}
                   </td>
-                  <td className="hidden px-4 py-2.5 text-gray-500 sm:table-cell">
+                  <td className="hidden px-4 py-2.5 text-slate-500 sm:table-cell">
                     {member.profile?.email ?? "\u2014"}
                   </td>
                   <td className="px-4 py-2.5">
@@ -126,7 +126,7 @@ export function MembersSection({ projectId }: MembersSectionProps) {
                     <td className="px-4 py-2.5 text-right">
                       <button
                         onClick={() => setRemovingMember(member)}
-                        className="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-600"
+                        className="rounded-xl p-1.5 text-slate-400 hover:bg-red-50 hover:text-red-600"
                         title="Verwijderen"
                       >
                         <Trash2 className="h-4 w-4" />
@@ -173,11 +173,11 @@ export function MembersSection({ projectId }: MembersSectionProps) {
             </FormSelect>
           </FormField>
 
-          <div className="flex justify-end gap-3 border-t border-gray-200 pt-4">
+          <div className="flex justify-end gap-3 border-t border-slate-200 pt-4">
             <button
               type="button"
               onClick={() => setIsModalOpen(false)}
-              className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+              className="rounded-xl border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700 transition-colors duration-150 hover:bg-slate-50"
             >
               Annuleren
             </button>
@@ -185,7 +185,7 @@ export function MembersSection({ projectId }: MembersSectionProps) {
               type="button"
               onClick={handleAddMember}
               disabled={!selectedProfileId || addMember.isPending}
-              className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary/90 disabled:opacity-50"
+              className="rounded-xl bg-[#e43122] px-4 py-2 text-sm font-medium text-white hover:bg-[#c42a1d] active:scale-[0.98] transition-all duration-150 disabled:opacity-50"
             >
               {addMember.isPending ? "Toevoegen..." : "Toevoegen"}
             </button>

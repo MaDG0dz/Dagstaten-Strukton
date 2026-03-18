@@ -102,11 +102,11 @@ export function SubprojectsSection({ projectId }: SubprojectsSectionProps) {
   return (
     <section>
       <div className="mb-4 flex items-center justify-between">
-        <h2 className="text-lg font-semibold text-gray-900">Deelprojecten</h2>
+        <h2 className="text-lg font-semibold text-slate-900">Deelprojecten</h2>
         {canManage && (
           <button
             onClick={handleOpenAdd}
-            className="inline-flex items-center gap-1.5 rounded-lg border border-gray-300 px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
+            className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 px-3 py-1.5 text-sm font-medium text-slate-700 transition-colors duration-150 hover:bg-slate-50"
           >
             <Plus className="h-4 w-4" />
             Deelproject toevoegen
@@ -119,7 +119,7 @@ export function SubprojectsSection({ projectId }: SubprojectsSectionProps) {
           {Array.from({ length: 2 }).map((_, i) => (
             <div
               key={i}
-              className="h-12 animate-pulse rounded-lg bg-gray-50"
+              className="h-12 animate-pulse rounded-lg bg-slate-50"
             />
           ))}
         </div>
@@ -134,14 +134,14 @@ export function SubprojectsSection({ projectId }: SubprojectsSectionProps) {
           {subprojects.map((sp) => (
             <div
               key={sp.id}
-              className="flex items-center justify-between rounded-lg border border-gray-200 bg-white px-4 py-3"
+              className="flex items-center justify-between rounded-lg border border-slate-200 bg-white px-4 py-3"
             >
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2">
-                  <span className="text-xs font-medium text-gray-500">
+                  <span className="text-xs font-medium text-slate-500">
                     {sp.code}
                   </span>
-                  <span className="text-sm font-medium text-gray-900">
+                  <span className="text-sm font-medium text-slate-900">
                     {sp.name}
                   </span>
                   <Badge variant={sp.is_active ? "active" : "inactive"}>
@@ -149,7 +149,7 @@ export function SubprojectsSection({ projectId }: SubprojectsSectionProps) {
                   </Badge>
                 </div>
                 {sp.description && (
-                  <p className="mt-0.5 truncate text-xs text-gray-500">
+                  <p className="mt-0.5 truncate text-xs text-slate-500">
                     {sp.description}
                   </p>
                 )}
@@ -158,14 +158,14 @@ export function SubprojectsSection({ projectId }: SubprojectsSectionProps) {
                 <div className="flex items-center gap-1">
                   <button
                     onClick={() => handleOpenEdit(sp)}
-                    className="rounded-lg p-1.5 text-gray-400 hover:bg-gray-100 hover:text-gray-600"
+                    className="rounded-xl p-1.5 text-slate-400 hover:bg-slate-100 hover:text-slate-600"
                     title="Bewerken"
                   >
                     <Pencil className="h-4 w-4" />
                   </button>
                   <button
                     onClick={() => setDeletingItem(sp)}
-                    className="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-600"
+                    className="rounded-xl p-1.5 text-slate-400 hover:bg-red-50 hover:text-red-600"
                     title="Verwijderen"
                   >
                     <Trash2 className="h-4 w-4" />
@@ -210,19 +210,19 @@ export function SubprojectsSection({ projectId }: SubprojectsSectionProps) {
             />
           </FormField>
 
-          <div className="flex justify-end gap-3 border-t border-gray-200 pt-4">
+          <div className="flex justify-end gap-3 border-t border-slate-200 pt-4">
             <button
               type="button"
               onClick={handleCloseModal}
               disabled={isSaving}
-              className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50"
+              className="rounded-xl border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700 transition-colors duration-150 hover:bg-slate-50 disabled:opacity-50"
             >
               Annuleren
             </button>
             <button
               type="submit"
               disabled={isSaving}
-              className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary/90 disabled:opacity-50"
+              className="rounded-xl bg-[#e43122] px-4 py-2 text-sm font-medium text-white hover:bg-[#c42a1d] active:scale-[0.98] transition-all duration-150 disabled:opacity-50"
             >
               {isSaving ? "Opslaan..." : "Opslaan"}
             </button>

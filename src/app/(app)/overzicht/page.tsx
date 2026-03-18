@@ -77,7 +77,7 @@ export default function OverzichtPage() {
         actions={
           <button
             disabled
-            className="flex items-center gap-2 rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-400 cursor-not-allowed"
+            className="flex items-center gap-2 rounded-xl border border-slate-200 px-4 py-2 text-sm font-medium text-slate-400 cursor-not-allowed"
             title="Komt binnenkort"
           >
             <Download className="h-4 w-4" />

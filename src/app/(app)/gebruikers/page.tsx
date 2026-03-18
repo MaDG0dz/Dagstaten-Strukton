@@ -23,10 +23,10 @@ export default function GebruikersPage() {
     return (
       <div className="flex min-h-[50vh] items-center justify-center">
         <div className="text-center">
-          <h2 className="text-lg font-semibold text-gray-900">
+          <h2 className="text-lg font-semibold text-slate-900">
             Geen toegang
           </h2>
-          <p className="mt-1 text-sm text-gray-500">
+          <p className="mt-1 text-sm text-slate-500">
             Je hebt geen rechten om deze pagina te bekijken.
           </p>
         </div>
@@ -64,7 +64,7 @@ export default function GebruikersPage() {
           value={profile.role}
           onChange={(e) => handleRoleChange(profile, e.target.value as AppRole)}
           onClick={(e) => e.stopPropagation()}
-          className="rounded-lg border border-gray-300 px-2 py-1 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+          className="rounded-xl border border-slate-200 px-2 py-1 text-sm transition-colors duration-150 focus:border-[#e43122] focus:outline-none focus:ring-4 focus:ring-[#e43122]/20"
         >
           {APP_ROLES.map((role) => (
             <option key={role} value={role}>

@@ -27,13 +27,13 @@ export function SearchInput({
 
   return (
     <div className="relative w-full max-w-sm">
-      <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+      <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
       <input
         type="text"
         value={local}
         onChange={(e) => setLocal(e.target.value)}
         placeholder={placeholder}
-        className="w-full rounded-lg border border-gray-300 py-2 pl-9 pr-8 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+        className="h-10 w-full rounded-xl border border-slate-200 pl-10 pr-8 text-sm transition-shadow duration-150 focus:border-[#e43122] focus:outline-none focus:ring-4 focus:ring-[#e43122]/20"
       />
       {local && (
         <button
@@ -41,7 +41,7 @@ export function SearchInput({
             setLocal("");
             onChange("");
           }}
-          className="absolute right-2 top-1/2 -translate-y-1/2 rounded p-0.5 text-gray-400 hover:text-gray-600"
+          className="absolute right-2 top-1/2 -translate-y-1/2 rounded p-0.5 text-slate-400 transition-colors duration-150 hover:text-slate-600"
         >
           <X className="h-4 w-4" />
         </button>

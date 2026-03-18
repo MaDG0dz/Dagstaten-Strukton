@@ -99,7 +99,7 @@ export default function ProjectenPage() {
           canManage ? (
             <button
               onClick={handleAdd}
-              className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary/90"
+              className="inline-flex items-center gap-2 rounded-xl bg-[#e43122] px-4 py-2 text-sm font-medium text-white hover:bg-[#c42a1d] active:scale-[0.98] transition-all duration-150"
             >
               <Plus className="h-4 w-4" />
               Nieuw project
@@ -123,7 +123,7 @@ export default function ProjectenPage() {
             {Array.from({ length: 3 }).map((_, i) => (
               <div
                 key={i}
-                className="h-28 animate-pulse rounded-xl border border-gray-200 bg-gray-50"
+                className="h-28 animate-pulse rounded-xl border border-slate-200 bg-slate-50"
               />
             ))}
           </div>

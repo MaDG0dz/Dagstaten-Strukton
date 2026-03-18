@@ -26,12 +26,12 @@ export function ConfirmDialog({
 }: ConfirmDialogProps) {
   return (
     <Modal open={open} onClose={onCancel} title={title} size="sm">
-      <p className="text-sm text-gray-600">{description}</p>
+      <p className="text-sm leading-relaxed text-slate-600">{description}</p>
       <div className="mt-4 flex justify-end gap-3">
         <button
           onClick={onCancel}
           disabled={loading}
-          className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+          className="h-10 rounded-xl border border-slate-200 px-4 text-sm font-medium text-slate-700 transition-colors duration-150 hover:bg-slate-50"
         >
           Annuleren
         </button>
@@ -39,7 +39,7 @@ export function ConfirmDialog({
           onClick={onConfirm}
           disabled={loading}
           className={cn(
-            "rounded-lg px-4 py-2 text-sm font-medium text-white",
+            "h-10 rounded-xl px-4 text-sm font-medium text-white transition-colors duration-150",
             variant === "danger"
               ? "bg-red-600 hover:bg-red-700"
               : "bg-amber-600 hover:bg-amber-700",

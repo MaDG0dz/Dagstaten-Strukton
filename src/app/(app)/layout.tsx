@@ -3,6 +3,7 @@
 import { AuthProvider } from "@/components/providers/auth-provider";
 import { QueryProvider } from "@/components/providers/query-provider";
 import { OfflineProvider, useOffline } from "@/components/providers/offline-provider";
+import { useRouter } from "next/navigation";
 import { Sidebar } from "@/components/layout/sidebar";
 import { MobileNav } from "@/components/layout/mobile-nav";
 import { useAuth } from "@/components/providers/auth-provider";
@@ -24,9 +25,20 @@ function OfflineBanner() {
 }
 
 function AppShell({ children }: { children: React.ReactNode }) {
-  const { loading } = useAuth();
+  const { loading, user } = useAuth();
+  const router = useRouter();
 
   if (loading) {
+    return (
+      <div className="min-h-screen">
+        <PageSkeleton />
+      </div>
+    );
+  }
+
+  // Redirect to login if not authenticated
+  if (!user) {
+    router.replace("/login");
     return (
       <div className="min-h-screen">
         <PageSkeleton />

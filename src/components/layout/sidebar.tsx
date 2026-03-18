@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X, LogOut } from "lucide-react";
 import { useState } from "react";
@@ -64,13 +63,13 @@ export function Sidebar() {
         {/* Header — Logo + brand */}
         <div className="flex items-center justify-between border-b border-slate-800 px-4 py-4">
           <div className="flex items-center gap-2.5">
-            <Image
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
               src="/logo.png"
               alt="Strukton logo"
               width={36}
               height={36}
               className="h-9 w-auto"
-              priority
             />
             <span
               className="text-lg font-bold tracking-tight text-white"

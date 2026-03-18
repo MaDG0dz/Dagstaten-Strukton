@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 export default function AuthLayout({
   children,
 }: {
@@ -15,13 +13,13 @@ export default function AuthLayout({
         }} />
 
         <div className="relative z-10 flex flex-col items-center text-center">
-          <Image
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
             src="/logo.png"
             alt="Strukton logo"
             width={80}
             height={80}
             className="mb-8"
-            priority
           />
 
           <h1 className="font-[family-name:var(--font-heading)] text-2xl font-bold text-white tracking-tight">
@@ -44,13 +42,13 @@ export default function AuthLayout({
       <div className="flex flex-1 flex-col items-center justify-center bg-white px-6 py-12">
         {/* Mobile logo — visible only on small screens */}
         <div className="mb-10 flex flex-col items-center lg:hidden">
-          <Image
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
             src="/logo.png"
             alt="Strukton logo"
             width={48}
             height={48}
             className="mb-3"
-            priority
           />
           <span className="font-[family-name:var(--font-heading)] text-lg font-bold text-slate-900 tracking-tight">
             Dagstaten

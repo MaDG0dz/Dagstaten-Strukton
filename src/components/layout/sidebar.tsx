@@ -39,7 +39,7 @@ export function Sidebar() {
       {/* Mobile hamburger */}
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed top-4 left-4 z-50 rounded-lg bg-[#0f172a] p-2 text-white shadow-lg md:hidden"
+        className="fixed top-4 left-4 z-50 rounded-lg bg-[#5b00b4] p-2 text-white shadow-lg md:hidden"
         aria-label="Open menu"
       >
         <Menu className="h-5 w-5" />
@@ -56,12 +56,12 @@ export function Sidebar() {
       {/* Sidebar */}
       <aside
         className={cn(
-          "fixed inset-y-0 left-0 z-50 flex w-64 flex-col bg-[#0f172a] text-[#e2e8f0] transition-transform duration-200 ease-out md:translate-x-0",
+          "fixed inset-y-0 left-0 z-50 flex w-64 flex-col bg-[#5b00b4] text-[#ede9fe] transition-transform duration-200 ease-out md:translate-x-0",
           isOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >
         {/* Header — Logo + brand */}
-        <div className="flex items-center justify-between border-b border-slate-800 px-4 py-4">
+        <div className="flex items-center justify-between border-b border-white/10 px-4 py-4">
           <div className="flex items-center gap-2.5">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -80,7 +80,7 @@ export function Sidebar() {
           </div>
           <button
             onClick={() => setIsOpen(false)}
-            className="rounded-lg p-1 text-slate-400 transition-colors duration-150 ease-out hover:bg-[#1e293b] hover:text-white md:hidden"
+            className="rounded-lg p-1 text-slate-400 transition-colors duration-150 ease-out hover:bg-[#7316d1] hover:text-white md:hidden"
           >
             <X className="h-5 w-5" />
           </button>
@@ -100,7 +100,7 @@ export function Sidebar() {
                       "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-150 ease-out",
                       isActive
                         ? "border-l-[3px] border-[#e43122] bg-[rgba(228,49,34,0.12)] pl-[9px] text-white"
-                        : "border-l-[3px] border-transparent pl-[9px] text-slate-400 hover:bg-[#1e293b] hover:text-white"
+                        : "border-l-[3px] border-transparent pl-[9px] text-slate-400 hover:bg-[#7316d1] hover:text-white"
                     )}
                   >
                     <item.icon className="h-[18px] w-[18px] shrink-0" />
@@ -116,7 +116,7 @@ export function Sidebar() {
         <RoleSwitcher />
 
         {/* Separator */}
-        <div className="border-t border-slate-800" />
+        <div className="border-t border-white/10" />
 
         {/* User section */}
         <div className="px-4 py-3">
@@ -129,14 +129,14 @@ export function Sidebar() {
               <div className="truncate text-sm font-medium text-white">
                 {displayName}
               </div>
-              <span className="inline-block rounded bg-slate-800 px-1.5 py-0.5 text-[10px] font-medium text-slate-400">
+              <span className="inline-block rounded bg-white/15 px-1.5 py-0.5 text-[10px] font-medium text-slate-400">
                 {roleLabel}
               </span>
             </div>
           </div>
           <button
             onClick={signOut}
-            className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-slate-500 transition-colors duration-150 ease-out hover:bg-[#1e293b] hover:text-slate-300"
+            className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-slate-500 transition-colors duration-150 ease-out hover:bg-[#7316d1] hover:text-slate-300"
           >
             <LogOut className="h-4 w-4" />
             Uitloggen

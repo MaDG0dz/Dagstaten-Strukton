@@ -19,12 +19,12 @@
   --color-status-submitted: #f59e0b;
   --color-status-approved: #10b981;
 
-  /* Sidebar — Dark professional */
-  --color-sidebar-bg: #0f172a;
-  --color-sidebar-text: #e2e8f0;
-  --color-sidebar-hover: #1e293b;
+  /* Sidebar — Strukton Purple */
+  --color-sidebar-bg: #5b00b4;
+  --color-sidebar-text: #ede9fe;
+  --color-sidebar-hover: #7316d1;
   --color-sidebar-active: #e43122;
-  --color-sidebar-active-bg: rgba(228, 49, 34, 0.12);
+  --color-sidebar-active-bg: rgba(228, 49, 34, 0.15);
 
   /* Surfaces */
   --color-surface: #ffffff;

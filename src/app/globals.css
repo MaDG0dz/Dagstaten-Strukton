@@ -35,7 +35,7 @@
 
   /* Text */
   --color-text: #0f172a;
-  --color-text-secondary: #64748b;
+  --color-text-secondary: #475569;
   --color-text-muted: #94a3b8;
 
   /* Font families */
@@ -137,4 +137,13 @@ dialog::backdrop {
 
 .animate-scale-in {
   animation: scaleIn 0.15s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

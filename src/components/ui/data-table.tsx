@@ -48,7 +48,7 @@ export function DataTable<T>({
                 <th
                   key={col.key}
                   className={cn(
-                    "px-4 py-3 text-[11px] uppercase tracking-wider font-semibold text-slate-500",
+                    "px-4 py-3 text-[11px] uppercase tracking-wider font-semibold text-slate-600",
                     col.hideOnMobile && "hidden md:table-cell",
                     col.className
                   )}

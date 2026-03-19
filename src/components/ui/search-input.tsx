@@ -41,7 +41,8 @@ export function SearchInput({
             setLocal("");
             onChange("");
           }}
-          className="absolute right-2 top-1/2 -translate-y-1/2 rounded p-0.5 text-slate-400 transition-colors duration-150 hover:text-slate-600"
+          aria-label="Zoekterm wissen"
+          className="absolute right-2 top-1/2 -translate-y-1/2 rounded p-1.5 text-slate-400 transition-colors duration-150 hover:text-slate-600"
         >
           <X className="h-4 w-4" />
         </button>

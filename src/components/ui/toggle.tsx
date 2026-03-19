@@ -19,7 +19,7 @@ export function Toggle({ checked, onChange, label, disabled }: ToggleProps) {
       disabled={disabled}
       onClick={() => onChange(!checked)}
       className={cn(
-        "relative inline-flex h-6 w-10 shrink-0 items-center rounded-full transition-colors duration-200",
+        "relative inline-flex h-6 w-10 min-h-[44px] shrink-0 items-center rounded-full transition-colors duration-200",
         checked ? "bg-[#e43122]" : "bg-slate-300",
         disabled && "cursor-not-allowed opacity-50"
       )}

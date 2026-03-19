@@ -38,7 +38,7 @@ export function MobileNav() {
               <item.icon className="h-5 w-5" />
               <span
                 className="truncate font-medium"
-                style={{ fontSize: "10px", lineHeight: "14px" }}
+                style={{ fontSize: "11px", lineHeight: "14px" }}
               >
                 {item.label}
               </span>

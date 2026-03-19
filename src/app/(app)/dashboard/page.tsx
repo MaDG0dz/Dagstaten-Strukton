@@ -238,12 +238,12 @@ export default function DashboardPage() {
           {(["draft", "submitted", "approved"] as const).map((status) => (
             <div key={status} className="flex items-center gap-1.5">
               <StatusDot status={status} size="sm" />
-              <span className="text-xs text-slate-500">{STATUS_CONFIG[status].label}</span>
+              <span className="text-xs text-slate-600">{STATUS_CONFIG[status].label}</span>
             </div>
           ))}
           <div className="flex items-center gap-1.5">
             <span className="h-2 w-2 rounded-full bg-slate-200" />
-            <span className="text-xs text-slate-500">Leeg</span>
+            <span className="text-xs text-slate-600">Leeg</span>
           </div>
         </div>
       </div>

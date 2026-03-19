@@ -101,7 +101,8 @@ export default function GebruikersPage() {
               setEditingProfile(profile);
             }}
             title="Gebruiker bewerken"
-            className="flex h-8 w-8 items-center justify-center rounded-xl p-2 text-slate-400 transition-colors duration-150 hover:bg-slate-100 hover:text-slate-600"
+            aria-label="Bewerken"
+            className="flex h-10 w-10 items-center justify-center rounded-lg p-2.5 text-slate-400 transition-colors duration-150 hover:bg-slate-100 hover:text-slate-600"
           >
             <Pencil className="h-4 w-4" />
           </button>
@@ -115,7 +116,8 @@ export default function GebruikersPage() {
               });
             }}
             title="Wachtwoord wijzigen"
-            className="flex h-8 w-8 items-center justify-center rounded-xl p-2 text-slate-400 transition-colors duration-150 hover:bg-slate-100 hover:text-slate-600"
+            aria-label="Wachtwoord wijzigen"
+            className="flex h-10 w-10 items-center justify-center rounded-lg p-2.5 text-slate-400 transition-colors duration-150 hover:bg-slate-100 hover:text-slate-600"
           >
             <KeyRound className="h-4 w-4" />
           </button>

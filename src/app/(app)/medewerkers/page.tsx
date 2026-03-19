@@ -133,8 +133,9 @@ export default function MedewerkersPage() {
                     e.stopPropagation();
                     handleEdit(emp);
                   }}
-                  className="rounded-xl p-1.5 text-slate-400 hover:bg-slate-100 hover:text-slate-600"
+                  className="rounded-lg p-2.5 text-slate-400 hover:bg-slate-100 hover:text-slate-600"
                   title="Bewerken"
+                  aria-label="Bewerken"
                 >
                   <Pencil className="h-4 w-4" />
                 </button>
@@ -143,8 +144,9 @@ export default function MedewerkersPage() {
                     e.stopPropagation();
                     setDeletingItem(emp);
                   }}
-                  className="rounded-xl p-1.5 text-slate-400 hover:bg-red-50 hover:text-red-600"
+                  className="rounded-lg p-2.5 text-slate-400 hover:bg-red-50 hover:text-red-600"
                   title="Verwijderen"
+                  aria-label="Verwijderen"
                 >
                   <Trash2 className="h-4 w-4" />
                 </button>

@@ -208,6 +208,11 @@ export default function DagstaatEditorPage() {
         title={`${project.name}`}
         description={formatDateNL(date)}
         backHref={`/projecten/${projectId}`}
+        breadcrumbs={[
+          { label: "Projecten", href: "/projecten" },
+          { label: project.name, href: `/projecten/${projectId}` },
+          { label: formatDateNL(date) },
+        ]}
         actions={
           <div className="flex items-center gap-2">
             {status === "draft" && templates.length > 0 && (

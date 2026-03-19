@@ -51,7 +51,7 @@ function AppShell({ children }: { children: React.ReactNode }) {
       <Sidebar />
       <main className="md:ml-64">
         <OfflineBanner />
-        <div className="p-4 pb-20 md:p-6 md:pb-6">{children}</div>
+        <div className="px-4 pt-14 pb-20 md:px-6 md:pt-6 md:pb-6">{children}</div>
       </main>
       <MobileNav />
     </div>

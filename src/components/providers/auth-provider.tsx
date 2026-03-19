@@ -43,6 +43,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       return;
     }
 
+    // Safety timeout: never show loading skeleton for more than 8 seconds
+    const timeout = setTimeout(() => {
+      setLoading(false);
+    }, 8000);
+
     const getUser = async () => {
       try {
         const {
@@ -61,6 +66,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       } catch (err) {
         console.error("Auth check failed:", err);
       } finally {
+        clearTimeout(timeout);
         setLoading(false);
       }
     };
@@ -84,7 +90,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
     });
 
-    return () => subscription.unsubscribe();
+    return () => {
+      subscription.unsubscribe();
+      clearTimeout(timeout);
+    };
   }, []);
 
   const signOut = async () => {

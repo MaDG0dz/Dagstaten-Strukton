@@ -258,3 +258,39 @@ export const useDeleteNote = () =>
   useSupabaseDelete("dagstaat_notes", {
     invalidateKeys: [["dagstaat_notes"]],
   });
+
+// ── Dagstaat Photos ──────────────────────────────────────────────
+export interface DagstaatPhoto {
+  id: string;
+  dagstaat_id: string;
+  subproject_id: string | null;
+  storage_path: string;
+  file_name: string;
+  file_size: number;
+  caption: string | null;
+  uploaded_by: string;
+  created_at: string;
+}
+
+export const useDagstaatPhotos = (dagstaatId: string) =>
+  useSupabaseList<DagstaatPhoto>("dagstaat_photos", {
+    queryKey: ["dagstaat_photos", dagstaatId],
+    filters: { dagstaat_id: dagstaatId },
+    orderBy: { column: "created_at", ascending: true },
+    enabled: !!dagstaatId,
+  });
+
+export const useInsertPhoto = () =>
+  useSupabaseInsert<DagstaatPhoto>("dagstaat_photos", {
+    invalidateKeys: [["dagstaat_photos"]],
+  });
+
+export const useUpdatePhoto = () =>
+  useSupabaseUpdate<DagstaatPhoto>("dagstaat_photos", {
+    invalidateKeys: [["dagstaat_photos"]],
+  });
+
+export const useDeletePhoto = () =>
+  useSupabaseDelete("dagstaat_photos", {
+    invalidateKeys: [["dagstaat_photos"]],
+  });

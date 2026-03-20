@@ -100,15 +100,6 @@ export default function MedewerkersPage() {
         ),
     },
     {
-      key: "hourly_rate",
-      header: "Uurtarief",
-      hideOnMobile: true,
-      render: (emp) =>
-        emp.hourly_rate != null
-          ? `\u20AC ${emp.hourly_rate.toFixed(2)}`
-          : "\u2014",
-    },
-    {
       key: "status",
       header: "Status",
       render: (emp) => (

@@ -9,6 +9,8 @@ import {
   Calendar,
   LayoutDashboard,
   Settings,
+  Package,
+  Clock,
 } from "lucide-react";
 import { PageHeader } from "@/components/ui/page-header";
 import { Badge } from "@/components/ui/badge";
@@ -24,13 +26,17 @@ import { MembersSection } from "./_components/members-section";
 import { SubprojectsSection } from "./_components/subprojects-section";
 import { ProjectDagstatenTab } from "./_components/project-dagstaten-tab";
 import { ProjectInstellingenTab } from "./_components/project-instellingen-tab";
+import { ProjectMateriaalTab } from "./_components/project-materiaal-tab";
+import { ProjectUrenTab } from "./_components/project-uren-tab";
 import type { ProjectFormValues } from "@/lib/validations/project";
 
-type TabKey = "overzicht" | "dagstaten" | "instellingen";
+type TabKey = "overzicht" | "dagstaten" | "materiaalgebruik" | "urenoverzicht" | "instellingen";
 
 const TABS: { key: TabKey; label: string; icon: React.ElementType }[] = [
   { key: "overzicht", label: "Overzicht", icon: LayoutDashboard },
   { key: "dagstaten", label: "Dagstaten", icon: Calendar },
+  { key: "materiaalgebruik", label: "Materiaalgebruik", icon: Package },
+  { key: "urenoverzicht", label: "Urenoverzicht", icon: Clock },
   { key: "instellingen", label: "Instellingen", icon: Settings },
 ];
 
@@ -255,6 +261,14 @@ export default function ProjectDetailPage() {
 
         {activeTab === "dagstaten" && (
           <ProjectDagstatenTab projectId={projectId} />
+        )}
+
+        {activeTab === "materiaalgebruik" && (
+          <ProjectMateriaalTab projectId={projectId} />
+        )}
+
+        {activeTab === "urenoverzicht" && (
+          <ProjectUrenTab projectId={projectId} />
         )}
 
         {activeTab === "instellingen" && (

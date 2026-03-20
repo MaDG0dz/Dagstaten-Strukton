@@ -81,16 +81,6 @@ export function EquipmentForm({
         </FormSelect>
       </FormField>
 
-      <FormField label="Dagtarief" error={errors.day_rate?.message}>
-        <FormInput
-          {...register("day_rate", { valueAsNumber: true })}
-          type="number"
-          step="0.01"
-          placeholder="0.00"
-          disabled={isLoading}
-        />
-      </FormField>
-
       <FormField label="Actief">
         <div className="flex items-center gap-3 pt-1">
           <Toggle

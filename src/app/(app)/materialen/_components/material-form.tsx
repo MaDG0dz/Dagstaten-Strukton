@@ -72,16 +72,6 @@ export function MaterialForm({
         </FormSelect>
       </FormField>
 
-      <FormField label="Prijs per eenheid" error={errors.unit_price?.message}>
-        <FormInput
-          {...register("unit_price", { valueAsNumber: true })}
-          type="number"
-          step="0.01"
-          placeholder="0.00"
-          disabled={isLoading}
-        />
-      </FormField>
-
       <FormField label="Actief">
         <div className="flex items-center gap-3 pt-1">
           <Toggle

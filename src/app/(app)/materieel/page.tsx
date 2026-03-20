@@ -90,15 +90,6 @@ export default function MateriaalPage() {
       render: (item) => UNIT_LABELS[item.default_unit],
     },
     {
-      key: "day_rate",
-      header: "Dagtarief",
-      hideOnMobile: true,
-      render: (item) =>
-        item.day_rate != null
-          ? `\u20AC ${item.day_rate.toFixed(2)}`
-          : "\u2014",
-    },
-    {
       key: "status",
       header: "Status",
       render: (item) => (

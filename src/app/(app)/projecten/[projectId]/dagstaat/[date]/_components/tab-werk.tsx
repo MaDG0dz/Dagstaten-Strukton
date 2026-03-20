@@ -224,12 +224,12 @@ function InlineDeelprojectCreator({
   const createSubproject = useCreateSubproject();
 
   const handleCreate = async () => {
-    if (!code.trim() || !name.trim()) return;
+    if (!code.trim()) return;
     try {
       await createSubproject.mutateAsync({
         project_id: projectId,
         code: code.trim(),
-        name: name.trim(),
+        name: name.trim() || code.trim(),
         is_active: true,
       } as Parameters<typeof createSubproject.mutateAsync>[0]);
       setCode("");
@@ -268,7 +268,7 @@ function InlineDeelprojectCreator({
         <input
           type="text"
           className="h-9 rounded-lg border border-slate-200 bg-white px-3 text-sm placeholder:text-slate-400 focus:border-[#e43122] focus:outline-none focus:ring-2 focus:ring-[#e43122]/20"
-          placeholder="Naam"
+          placeholder="Naam (optioneel)"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
@@ -276,7 +276,7 @@ function InlineDeelprojectCreator({
       <div className="mt-2 flex gap-2">
         <button
           onClick={handleCreate}
-          disabled={!code.trim() || !name.trim() || createSubproject.isPending}
+          disabled={!code.trim() || createSubproject.isPending}
           className="rounded-lg bg-[#e43122] px-3 py-1.5 text-xs font-medium text-white hover:bg-[#c42a1d] disabled:opacity-50 transition-colors"
         >
           {createSubproject.isPending ? "Aanmaken..." : "Aanmaken"}

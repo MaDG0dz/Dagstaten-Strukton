@@ -17,7 +17,7 @@ export const projectSchema = z.object({
 export const subprojectSchema = z.object({
   project_id: z.string().uuid("Ongeldig project"),
   code: z.string().min(1, "Code is verplicht"),
-  name: z.string().min(1, "Naam is verplicht"),
+  name: z.string().optional(),
   description: z.string().nullable().optional(),
   is_active: z.boolean(),
 });

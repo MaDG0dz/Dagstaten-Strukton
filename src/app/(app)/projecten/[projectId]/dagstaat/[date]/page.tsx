@@ -16,6 +16,7 @@ import { TabWerk } from "./_components/tab-werk";
 import { TabMateriaal } from "./_components/tab-materiaal";
 import { TabNotes } from "./_components/tab-notes";
 import { TabFotos } from "./_components/tab-fotos";
+import { SubmitSummary } from "./_components/submit-summary";
 import {
   ArrowLeft,
   ChevronDown,
@@ -84,6 +85,7 @@ export default function DagstaatEditorPage() {
   const { user, effectiveRole } = useAuth();
 
   const [activeTabIndex, setActiveTabIndex] = useState(0);
+  const [showSummary, setShowSummary] = useState(false);
   const [showTemplateDropdown, setShowTemplateDropdown] = useState(false);
   const [applyingTemplate, setApplyingTemplate] = useState(false);
   const [copyingPrevious, setCopyingPrevious] = useState(false);
@@ -566,12 +568,11 @@ export default function DagstaatEditorPage() {
               {/* Draft: show submit button */}
               {status === "draft" && (isVoorman || canManage) && (
                 <button
-                  onClick={handleSubmit}
-                  disabled={updateDagstaat.isPending}
-                  className="inline-flex items-center gap-1.5 rounded-xl bg-[#e43122] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors duration-150 hover:bg-[#c92a1d] disabled:opacity-50"
+                  onClick={() => setShowSummary(true)}
+                  className="inline-flex items-center gap-1.5 rounded-xl bg-[#e43122] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors duration-150 hover:bg-[#c92a1d]"
                 >
                   <Send className="h-4 w-4" />
-                  {updateDagstaat.isPending ? "Bezig..." : "Indienen"}
+                  Indienen
                 </button>
               )}
 
@@ -626,6 +627,20 @@ export default function DagstaatEditorPage() {
             {status !== "draft" && <div className="w-10" />}
           </div>
         </div>
+      )}
+
+      {/* Submit summary modal */}
+      {dagstaat && (
+        <SubmitSummary
+          dagstaatId={dagstaat.id}
+          open={showSummary}
+          onClose={() => setShowSummary(false)}
+          onConfirm={async () => {
+            await handleSubmit();
+            setShowSummary(false);
+          }}
+          isPending={updateDagstaat.isPending}
+        />
       )}
     </div>
   );
